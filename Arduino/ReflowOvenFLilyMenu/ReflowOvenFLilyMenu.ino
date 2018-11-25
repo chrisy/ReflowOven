@@ -34,9 +34,11 @@ LilyPadUSB.bootloader.low_fuses=0xff
 #include <Adafruit_MAX31855.h>  // Thermocouple Library - https://github.com/rocketscream/MAX31855
 #include <PID_v1.h>             // PID Library - http://playground.arduino.cc/Code/PIDLibrary
                                 //             - https://github.com/br3ttb/Arduino-PID-Library/
-#include <EEPROMEx.h>           // EEPROMex Library - http://playground.arduino.cc/Code/EEPROMex
+#include <EEPROMex.h>           // EEPROMex Library - http://playground.arduino.cc/Code/EEPROMex
+#include <EEPROMVar.h>
+
 // OHARARP FAVICON (LCD ASSISTANT, Byte Orientation - Horizontal Width = 64 Height = 64
-static unsigned char PROGMEM logo[] = { 
+static const unsigned char PROGMEM logo[] = { 
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xBF, 0xC0,
 0x0F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x3F, 0xF0, 0x1F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x7F, 0xFC,
 0x3F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE, 0x7F, 0xFC, 0x3F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE, 0xFF, 0xFE,
@@ -746,4 +748,3 @@ void loop()
   }
   
 }
-
