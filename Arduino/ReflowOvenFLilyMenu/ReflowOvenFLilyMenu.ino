@@ -1,3 +1,11 @@
+// Leondardo board
+// If using libraries managed by the Arduino IDE, these versions compiled:
+// Adafruit GFX 1.2.9  (compiles wirh SSD 1.1.2, newer may also work)
+// Adafruit SSD 1.1.2  (any newer is too big for the 32u5 and the final binary won't fit)
+// Adafruit MAX31855 1.0.3  (latest)
+// EEPROMEx 1.0.0  (latest)
+// PID 1.2.0  (latest)
+
 /*********************************************************************
 ReflowOvenFLily - Written to work with ReflowControllerC
 LilyPadUSB.bootloader.extended_fuses=0xce
@@ -27,16 +35,17 @@ LilyPadUSB.bootloader.low_fuses=0xff
 *                                                                Time (Seconds)
 *********************************************************************/
 
-#include <Wire.h>
 // Includes
+#include <Wire.h>
 #include <Adafruit_GFX.h>       // GFX Library - https://github.com/adafruit/Adafruit-GFX-Library
 #include <Adafruit_SSD1306.h>   // SSD Library - https://github.com/adafruit/Adafruit_SSD1306
 #include <Adafruit_MAX31855.h>  // Thermocouple Library - https://github.com/rocketscream/MAX31855
 #include <PID_v1.h>             // PID Library - http://playground.arduino.cc/Code/PIDLibrary
                                 //             - https://github.com/br3ttb/Arduino-PID-Library/
 #include <EEPROMex.h>           // EEPROMex Library - http://playground.arduino.cc/Code/EEPROMex
-#include <EEPROMVar.h>
 
+#define BOOTLOGO
+#ifdef BOOTLOGO
 // OHARARP FAVICON (LCD ASSISTANT, Byte Orientation - Horizontal Width = 64 Height = 64
 static const unsigned char PROGMEM logo[] = { 
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xBF, 0xC0,
@@ -71,6 +80,7 @@ static const unsigned char PROGMEM logo[] = {
 0x3F, 0xFF, 0xDF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFC, 0x1F, 0xFF, 0x9F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFC,
 0x0F, 0xFF, 0xBF, 0xFF, 0xFF, 0xFF, 0xFF, 0xF8, 0x03, 0xFF, 0x3F, 0xFF, 0xFF, 0xFF, 0xFF, 0xE0,
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+#endif // BOOTLOGO
 
 typedef enum REFLOW_STATE
 {
@@ -261,11 +271,13 @@ void setup()   {
   // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
   display.begin(SSD1306_SWITCHCAPVCC);
   
+#ifdef BOOTLOGO
   //Display OHARARP Splash Screen
   display.clearDisplay();
   display.drawBitmap(31,0, logo, 64, 64, 1);
   display.display();
   delay(2000);
+#endif
   
   // Set window size
   windowSize = 5000;
